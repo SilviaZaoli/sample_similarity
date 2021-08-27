@@ -1,0 +1,29 @@
+This repository contains the code needed to reproduce the analysis of the article 
+Zaoli, S. and Grilli J., ?????
+
+It contains the following files:
+
+- Analysis.py: Script performing the entire analysis and producing all the figures in the paper
+
+- Ksigma.py, community.py: patches containing functions used in Analysis.py
+
+- OTU_MP_gut, OTU_MP_Leftpalms, OTU_MP_Rightpalms,OTU_MP_oral, OTU_BIOML, OTU_David: lists with the Greengenes ids of OTUs present in each dataset
+
+- DataCSV: Folder containing csv files with the time-series of OTU counts. One file for time series, in the following order: 
+    * 0 to 9: BIO-ML dataset, the 10 individuals with long time-series in alphabetical order 
+    * 10-11: Moving Pictures dataset (gut environment). 10: M3, 11: F4
+    * 12 to 15: David dataset (gut environment). 12: A before travel, 13: A after travel, 14: B before Salmonella, 15: B after Salmonella
+    * 16-18: Moving Pictures dataset (palm environment). 16: M3, left palm, 17: F4, left palm, 18: M3, right palm (Note: F4 has too low reads in all right palm samples)
+    * 19-20: Moving Picture dataset (oral environment). 19: M3, 20: F4 
+
+  In each csv file, rows correspond to samples. The first column contains the sampling day (number of days from the start of the experiment), the following columns contain the counts for each OTU, in the order of the OTU id files of the corresponding dataset. The last columnn contains the unassigned counts. OTU counts were obtained processing the raw data from the original experiments with Qiime, as described in section 1 of the Supplementary Information of the paper. 
+          
+  We cleaned the data as follows: 
+  * Removed samples with less than 10^4 reads or with more than half of the sequences non recognized
+  * Split the time-series of individual A to remove travel abroad: first time-series until day 70, second time-series starting from day 123
+  * Split the time-series of individual B to remove Salmonella infection: first time-series until day 149, second time-series starting from day 161
+  * Removed days indicated as potentially mislabelled in the original studies ( days 51, 168, 234, 367 for M3, day 0 for F4, days 75, 76 and from 258 to 270 for A and days 129 and 130 for B.) or, for the BIOML dataset where no indications are given,  that we identified as such with the method used in David et al. (2014)  (23rd sample for 'ae' and 19th sample for 'an'). 
+  * When two samples where present for the same day, we keep only the first
+  
+
+
